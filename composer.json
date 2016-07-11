@@ -1,0 +1,23 @@
+{
+    "name": "softonic/gigya",
+    "description": "Gigya SDK",
+    "type": "library",
+    "keywords": ["gigya", "gigyaSDK"],
+    "require": {
+        "php": ">=5"
+    },
+    "license": "Apache 2.0",
+    "autoload": {
+        "psr-4": {
+            "Softonic\\Gigya\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Ibañez",
+            "email": "daniel.ibanez@softonic.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
