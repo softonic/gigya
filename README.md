@@ -1,9 +1,6 @@
 Gigya SDK
 =========
 
-default
-
-
 [![Latest Stable Version](https://poser.pugx.org/softonic/gigya/v/stable?format=flat-square)](https://packagist.org/packages/softonic/gigya)
 [![Total Downloads](https://poser.pugx.org/softonic/gigya/downloads?format=flat-square)](https://packagist.org/packages/softonic/gigya)
 [![Software License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE.md)
