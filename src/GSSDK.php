@@ -8,17 +8,17 @@
 namespace Softonic\Gigya;
 
 if (!function_exists('curl_init')) {
-    throw new Exception('Gigya.Socialize needs the CURL PHP extension.');
+    throw new \Exception('Gigya.Socialize needs the CURL PHP extension.');
 }
 if (!function_exists('json_decode')) {
-    throw new Exception('Gigya.Socialize needs the JSON PHP extension.');
+    throw new \Exception('Gigya.Socialize needs the JSON PHP extension.');
 }
 
 
 /**
  * Gigya Socialize Exception
  */
-class GSException extends Exception
+class GSException extends \Exception
 {
     public $errorMessage;
 }
