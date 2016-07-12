@@ -4,7 +4,7 @@
     "type": "library",
     "keywords": ["gigya", "gigyaSDK"],
     "require": {
-        "php": ">=5"
+        "php": ">=5.4"
     },
     "license": "Apache 2.0",
     "autoload": {
