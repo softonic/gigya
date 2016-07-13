@@ -2,6 +2,8 @@
 
 namespace Softonic\Gigya;
 
+require_once "GSSDK.php";
+
 /**
  * Class GigyaAPI
  *
