@@ -28,23 +28,31 @@ class Gigya
     /**
      * @var GSRequest $gigya_request               The request object.
      * @var string    $gigya_user_id               The Gigya UID to send.
+     * @var string    $gigya_api_key               The gigya_api_key.
+     * @var string    $gigya_secret_key            The gigya_secret_key.
+     * @var string    $gigya_url_api_domain        The gigya_api_domain.
      * @var string    $uid_required                A flag to set if UID is required or not.
      */
     protected
         $gigya_request,
         $gigya_user_id = null,
+        $gigya_api_key,
+        $gigya_secret_key,
+        $gigya_url_api_domain,
         $uid_required = true;
 
     /**
      * GigyaAPI constructor.
      *
-     * @param string $$gigya_api_key        Gigya api sdk.
+     * @param string $gigya_api_key         Gigya api sdk.
      * @param string $gigya_secret_key      Gigya secret key.
      * @param string $gigya_url_api_domain  Gigya url api domain.
      */
     public function __construct($gigya_api_key ,$gigya_secret_key, $gigya_url_api_domain)
     {
-        $this->gigya_request = new GSRequest($gigya_api_key, $gigya_secret_key, $gigya_url_api_domain);
+        $this->gigya_api_key = $gigya_api_key;
+        $this->gigya_secret_key = $gigya_secret_key;
+        $this->gigya_url_api_domain = $gigya_url_api_domain;
         $this->gigya_request->setAPIDomain($gigya_url_api_domain);
     }
 
@@ -57,6 +65,7 @@ class Gigya
      */
     public function createRequest($api_resource)
     {
+        $this->gigya_request = new GSRequest($this->gigya_api_key, $this->gigya_secret_key, $api_resource);
         $this->checkIfResourceIsAllowed($api_resource);
         return $this;
     }
