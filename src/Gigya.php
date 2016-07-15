@@ -99,7 +99,7 @@ class Gigya
     /**
      * Method to send the request using the GigyaSDK
      *
-     * @return GSResponse
+     * @return string
      */
     protected function send()
     {
