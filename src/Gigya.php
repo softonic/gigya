@@ -2,6 +2,8 @@
 
 namespace Softonic\Gigya;
 
+use Softonic\Gigya\Accounts;
+
 require_once "GSSDK.php";
 
 /**
@@ -21,9 +23,9 @@ class Gigya
      * The ACL of the resources and methods currently alloweds.
      * @var array $allowed_resources
      */
-    protected $allowed_resources = [
-        self::GET_ACCOUNT_INFO
-    ];
+    protected $allowed_resources = [];
+
+    const NAMESPACE_ACCOUNTS = 'accounts';
 
     /**
      * @var GSRequest $gigya_request               The request object.
@@ -53,8 +55,31 @@ class Gigya
         $this->gigya_api_key = $gigya_api_key;
         $this->gigya_secret_key = $gigya_secret_key;
         $this->gigya_url_api_domain = $gigya_url_api_domain;
-        $this->gigya_request->setAPIDomain($gigya_url_api_domain);
+        
     }
+
+    /**
+     * @return Accounts
+     */
+    public function accounts()
+    {
+        return $this->endpointFactory(Accounts::class);
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return Gigya
+     */
+    protected function endpointFactory($className = self::class)
+    {
+        return new $className(
+            $this->gigya_api_key,
+            $this->gigya_secret_key,
+            $this->gigya_url_api_domain
+        );
+    }
+
 
     /**
      * Create request.
@@ -63,9 +88,10 @@ class Gigya
      *
      * @return Gigya
      */
-    public function createRequest($api_resource)
+    protected function createRequest($api_resource)
     {
         $this->gigya_request = new GSRequest($this->gigya_api_key, $this->gigya_secret_key, $api_resource);
+        $this->gigya_request->setAPIDomain($this->gigya_url_api_domain);
         $this->checkIfResourceIsAllowed($api_resource);
         return $this;
     }
@@ -73,13 +99,19 @@ class Gigya
     /**
      * Method to send the request using the GigyaSDK
      *
-     * @return GSObject
+     * @return GSResponse
      */
-    public function send()
+    protected function send()
     {
         $this->checkIfUIDIsRequiredAndAddItToRequestIfNeeded();
 
-        return $this->gigya_request->send()->getData();
+        $gigya_response = $this->gigya_request->send();
+
+        if (0 == $gigya_response->getErrorCode()){
+            return json_decode($gigya_response->getData()->toJsonString());
+        } else {
+            throw new \Exception( $gigya_response->getErrorMessage(), $gigya_response->getErrorCode());
+        }
     }
 
     /**
@@ -117,7 +149,7 @@ class Gigya
      *
      * @return Gigya
      */
-    public function setGigyaUserId($gigya_user_id)
+    protected function setGigyaUserId($gigya_user_id)
     {
         $this->gigya_user_id = $gigya_user_id;
         return $this;
@@ -131,7 +163,7 @@ class Gigya
      *
      * @return Gigya
      */
-    public function setUidRequired($uid_required)
+    protected function setUidRequired($uid_required)
     {
         $this->uid_required = $uid_required;
         return $this;

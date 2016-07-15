@@ -2,6 +2,11 @@
 
 All Notable changes to `gigya` will be documented in this file
 
+## 0.0.4 - 2016-07-15
+
+### Added
+- Account resource
+
 ## 0.0.3 - 2016-07-13
 
 ### Fixed
