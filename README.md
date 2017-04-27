@@ -13,6 +13,5 @@ A repository to hold versioned instances of the [Gigya PHP SDK](http://developer
 
 Create a PR if you wish to add new versions as they come out or older versions if you have them archived.
 
-To add a version, replace GSSDK.php and cacert.pem in src folder and add the sdk version in readme on the master branch.
- 
- 
+To add a version, update each class version and cacert.pem in src folder and add the sdk version in readme in the master branch.
+
