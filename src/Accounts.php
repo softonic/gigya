@@ -13,13 +13,13 @@ class Accounts extends Gigya
     const HTTP_OK = '200';
 
     /**
-     * The ACL of the resources and methods currently alloweds.
+     * The ACL of the resources and allowed methods.
      * @var array $allowed_resources
      */
     protected $allowed_resources = [
         self::GET_ACCOUNT_INFO
     ];
-    
+
     public function getAccountInfo($id){
         $this->createRequest(self::GET_ACCOUNT_INFO);
         $this->setGigyaUserId($id);
