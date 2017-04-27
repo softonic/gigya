@@ -4,7 +4,9 @@
     "type": "library",
     "keywords": ["gigya", "gigyaSDK"],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "license": "Apache 2.0",
     "autoload": {
@@ -16,6 +18,10 @@
         {
             "name": "Daniel Ibañez",
             "email": "daniel.ibanez@softonic.com"
+        },
+        {
+            "name": "Basilio Vera",
+            "email": "basilio.vera@softonic.com"
         }
     ],
     "minimum-stability": "stable",
