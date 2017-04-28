@@ -31,7 +31,7 @@ class GSRequest
 
     static function __constructStatic()
     {
-        GSRequest::$cafile = realpath('./cacert.pem');
+        GSRequest::$cafile = realpath(__DIR__.'/cacert.pem');
     }
 
     /**
