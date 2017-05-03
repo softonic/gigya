@@ -4,10 +4,17 @@ namespace Softonic\Gigya;
 
 class SigUtils
 {
+    /**
+     * Added for simplify the tests without refactor the full package.
+     *
+     * @var int
+     */
+    public static $signatureTTL = 180;
+
     public static function validateUserSignature($UID, $timestamp, $secret, $signature)
     {
         $now = time();
-        if (abs($now - $timestamp) > 180) {
+        if (abs($now - $timestamp) > self::$signatureTTL) {
             return false;
         }
 
@@ -19,7 +26,7 @@ class SigUtils
     public static function validateFriendSignature($UID, $timestamp, $friendUID, $secret, $signature)
     {
         $now = time();
-        if (abs($now - $timestamp) > 180) {
+        if (abs($now - $timestamp) > self::$signatureTTL) {
             return false;
         }
 
