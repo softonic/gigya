@@ -15,9 +15,8 @@ class SigUtils
     {
         $now = time();
         if (abs($now - $timestamp) > self::$signatureTTL) {
-            return false;
+            throw new GSException('Login Signature Expired');
         }
-
         $baseString = $timestamp . "_" . $UID;
         $expectedSig = self::calcSignature($baseString, $secret);
         return $expectedSig == $signature;
@@ -50,9 +49,19 @@ class SigUtils
         $expirationTimeUnix = (string)floor($expirationTimeUnixMS);
         $unsignedExpString = $glt_cookie . "_" . $expirationTimeUnix;
         $signedExpString = SigUtils::calcSignature($unsignedExpString, $secret); // sign the base string using the secret key
-
         $ret = $expirationTimeUnix . '_' . $signedExpString;   // define the cookie value
+        return $ret;
+    }
 
+    public static function getDynamicSessionSignatureUserSigned($glt_cookie, $timeoutInSeconds, $userKey, $secret)
+    {
+        // cookie format:
+        // <expiration time in unix time format>_<User Key>_BASE64(HMACSHA1(secret key, <login token>_<expiration time in unix time format>_<User Key>))
+        $expirationTimeUnixMS = (SigUtils::currentTimeMillis() / 1000) + $timeoutInSeconds;
+        $expirationTimeUnix = (string)floor($expirationTimeUnixMS);
+        $unsignedExpString = $glt_cookie . "_" . $expirationTimeUnix . "_" . $userKey;
+        $signedExpString = SigUtils::calcSignature($unsignedExpString, $secret); // sign the base string using the secret key
+        $ret = $expirationTimeUnix . "_" . $userKey . "_" . $signedExpString;   // define the cookie value
         return $ret;
     }
 
