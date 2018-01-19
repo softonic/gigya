@@ -88,6 +88,14 @@ class GSRequest
     }
 
     /**
+     * Allows to reuse the same GSRequest object for different requests.
+     */
+    public function resetParams()
+    {
+        $this->params = new GSObject();
+    }
+
+    /**
      * Sets the domain used for making API calls. This method provides the option to override the default domain "gigya.com" and specify an alternative data center to be used.
      * Parameters:
      *    $apiDomain - the domain of the data center to be used. For example: "eu1.gigya.com" for Europe data center.
