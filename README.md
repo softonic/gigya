@@ -7,7 +7,7 @@ Gigya SDK
 
 SDK to interact with Gigya throw PHP.
 
-- Gigya SDK version: 2.15.8
+- Gigya SDK version: 2.17.0
 
 A repository to hold versioned instances of the [Gigya PHP SDK](http://developers.gigya.com/display/GD/PHP)
 

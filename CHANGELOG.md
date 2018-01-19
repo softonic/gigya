@@ -2,6 +2,10 @@
 
 All Notable changes to `gigya` will be documented in this file
 
+## 2.17.0 - 2018-01-19
+- Updated to GigyaSDK 2.17.0
+- New version number used to follow GigyaSDK changes more easily.
+
 ## 0.0.4 - 2016-07-15
 
 ### Added

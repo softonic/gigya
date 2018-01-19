@@ -28,7 +28,6 @@ class SigUtils
         if (abs($now - $timestamp) > self::$signatureTTL) {
             return false;
         }
-
         $baseString = $timestamp . "_" . $friendUID . "_" . $UID;
         $expectedSig = self::calcSignature($baseString, $secret);
         return $expectedSig == $signature;

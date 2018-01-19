@@ -24,19 +24,15 @@ class GSObject
     {
         $this->map = array();
         if (!empty($json)) {
-
             //parse json string.
             if (gettype($json) == 'string') {
                 $obj = json_decode($json, false);
-
-
                 if ($obj == null) {
                     throw new GSException();
                 }
             } else {
                 $obj = $json;
             }
-
             self::processJsonObject($obj, $this);
         }
     }
@@ -45,9 +41,7 @@ class GSObject
     {
         $arr = Array();
         if (empty($this->map)) return $arr;
-
         $arr = $this->serializeGSObject($this);
-
         return $arr;
     }
 
@@ -55,7 +49,6 @@ class GSObject
     {
         $arr = Array();
         foreach ($gsd->map as $name => $value) {
-
             $val = GSObject::serializeValue($value);
             $arr[$name] = $val;
         }
@@ -89,7 +82,6 @@ class GSObject
         if (array_key_exists($key, $this->map)) {
             return $this->map[$key];
         }
-
         if ($defaultValue !== GSObject::DEFAULT_VALUE) {
             return $defaultValue;
         }
@@ -155,7 +147,6 @@ class GSObject
         } catch (Exception $e) {
         }
     }
-
 
     /**
      * Parse parameters from query string
@@ -225,8 +216,6 @@ class GSObject
                     $parentObj->put($name, $value);
                 }
             }
-
         return $parentObj;
-
     }
 }
