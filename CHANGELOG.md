@@ -2,6 +2,9 @@
 
 All Notable changes to `gigya` will be documented in this file
 
+## 2.17.0.1 - 2018-01-19
+- Added a method to GSRequest class to reset parameters, allowing to reuse the same object for different queries.
+
 ## 2.17.0 - 2018-01-19
 - Updated to GigyaSDK 2.17.0
 - New version number used to follow GigyaSDK changes more easily.
