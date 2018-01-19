@@ -5,24 +5,21 @@ namespace Softonic\Gigya;
 class GSArray
 {
     private $map;
-    const NO_INDEX_EX = "GSArray does not contain a value at index ";
 
+    const NO_INDEX_EX = "GSArray does not contain a value at index ";
 
     public function __construct($value = null)
     {
         $this->map = array();
         if (!empty($value)) {
             $obj = $value;
-
             //parse json string.
             if (gettype($value) == 'string') {
                 $obj = json_decode($value, false);
-
                 if ($obj == null) {
                     throw new GSException();
                 }
             }
-
             $this->processJsonObject($obj, $this);
         }
     }
@@ -65,7 +62,6 @@ class GSArray
         $obj = $this->map[$inx];
         if ($obj === null)
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
-
         if (is_bool($obj)) {
             return (Boolean)$obj;
         } else {
@@ -76,11 +72,9 @@ class GSArray
 
     public function getInt($inx)
     {
-
         $obj = $this->map[$inx];
         if ($obj === null)
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
-
         if (is_int($obj)) {
             return (int)$obj;
         } else {
@@ -93,7 +87,6 @@ class GSArray
         $obj = $this->map[$inx];
         if ($obj === null)
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
-
         if (is_float($obj)) {
             return (float)$obj;
         } else {
@@ -106,7 +99,6 @@ class GSArray
         $obj = $this->map[$inx];
         if ($obj === null)
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
-
         if (is_double($obj)) {
             return (double)$obj;
         } else {
@@ -152,9 +144,7 @@ class GSArray
     {
         $arr = Array();
         if (empty($this->map)) return $arr;
-
         $arr = GSArray::serializeGSArray($this);
-
         return $arr;
     }
 
