@@ -20,7 +20,8 @@ class Accounts extends Gigya
         self::GET_ACCOUNT_INFO
     ];
 
-    public function getAccountInfo($id){
+    public function getAccountInfo($id)
+    {
         $this->createRequest(self::GET_ACCOUNT_INFO);
         $this->setGigyaUserId($id);
 

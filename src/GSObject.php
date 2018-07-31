@@ -39,15 +39,17 @@ class GSObject
 
     public function serialize()
     {
-        $arr = Array();
-        if (empty($this->map)) return $arr;
+        $arr = array();
+        if (empty($this->map)) {
+            return $arr;
+        }
         $arr = $this->serializeGSObject($this);
         return $arr;
     }
 
     public static function serializeGSObject($gsd)
     {
-        $arr = Array();
+        $arr = array();
         foreach ($gsd->map as $name => $value) {
             $val = GSObject::serializeValue($value);
             $arr[$name] = $val;
@@ -61,7 +63,7 @@ class GSObject
         if ($value instanceof GSObject) {
             return GSObject::serializeGSObject($value);
         } //array
-        else if ($value instanceof GSArray) {
+        elseif ($value instanceof GSArray) {
             return GSArray::serializeGSArray($value);
         } //else just add
         else {
@@ -140,10 +142,12 @@ class GSObject
     {
         try {
             $u = parse_url($url);
-            if (isset($u["query"]))
+            if (isset($u["query"])) {
                 $this->parseQueryString($u["query"]);
-            if (isset($u["fragment"]))
+            }
+            if (isset($u["fragment"])) {
                 $this->parseQueryString($u["fragment"]);
+            }
         } catch (Exception $e) {
         }
     }
@@ -155,7 +159,9 @@ class GSObject
      */
     public function parseQueryString($qs)
     {
-        if (!isset($qs)) return;
+        if (!isset($qs)) {
+            return;
+        }
         parse_str($qs, $this->map);
     }
 
@@ -201,7 +207,7 @@ class GSObject
 
     private static function processJsonObject($jo, $parentObj)
     {
-        if (!empty($jo))
+        if (!empty($jo)) {
             foreach ($jo as $name => $value) {
                 //array
                 if (is_array(($value))) {
@@ -216,6 +222,7 @@ class GSObject
                     $parentObj->put($name, $value);
                 }
             }
+        }
         return $parentObj;
     }
 }

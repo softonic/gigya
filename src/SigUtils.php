@@ -33,7 +33,7 @@ class SigUtils
         return $expectedSig == $signature;
     }
 
-    static function currentTimeMillis()
+    public static function currentTimeMillis()
     {
         // get utc time in ms
         list($msecs, $uts) = explode(' ', microtime());
@@ -64,7 +64,7 @@ class SigUtils
         return $ret;
     }
 
-    static function calcSignature($baseString, $key)
+    public static function calcSignature($baseString, $key)
     {
         $baseString = utf8_encode($baseString);
         $rawHmac = hash_hmac("sha1", utf8_encode($baseString), base64_decode($key), true);
