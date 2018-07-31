@@ -34,14 +34,14 @@ class GSResponse
 
     public function getErrorMessage()
     {
-        if (isset($this->errorMessage))
+        if (isset($this->errorMessage)) {
             return $this->errorMessage;
-        else {
-
-            if ($this->errorCode == 0 || !self::$errorMsgDic->containsKey((int)$this->errorCode))
+        } else {
+            if ($this->errorCode == 0 || !self::$errorMsgDic->containsKey((int)$this->errorCode)) {
                 return "";
-            else
+            } else {
                 return self::$errorMsgDic->getString($this->errorCode);
+            }
         }
     }
 
@@ -102,10 +102,11 @@ class GSResponse
     {
         $this->traceLog = $traceLog;
         $this->method = $method;
-        if (empty($params))
+        if (empty($params)) {
             $this->params = new GSObject();
-        else
+        } else {
             $this->params = $params;
+        }
 
         if (!empty($responseText)) {
             $this->rawData = $responseText;
@@ -135,9 +136,7 @@ class GSResponse
                     }
                 }
             }
-
         } else {
-
             $this->errorCode = $errorCode;
             $this->errorMessage = $errorMessage != null ? $errorMessage : self::getErrorMessage();
             $this->populateClientResponseText();

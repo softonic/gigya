@@ -33,7 +33,7 @@ class GSArray
                 } elseif (is_object($val)) {
                     $gsobj = new GSObject($val);
                     $gsarr->add($gsobj);
-                } else if (is_array(($val))) {
+                } elseif (is_array(($val))) {
                     $newGsarr = new GSArray($val);
                     $gsarr->add($newGsarr);
                 } else {
@@ -51,17 +51,19 @@ class GSArray
     public function getString($inx)
     {
         $obj = $this->map[$inx];
-        if ($obj === null)
+        if ($obj === null) {
             return null;
-        else
+        } else {
             return strval($obj);
+        }
     }
 
     public function getBool($inx)
     {
         $obj = $this->map[$inx];
-        if ($obj === null)
+        if ($obj === null) {
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
+        }
         if (is_bool($obj)) {
             return (Boolean)$obj;
         } else {
@@ -73,8 +75,9 @@ class GSArray
     public function getInt($inx)
     {
         $obj = $this->map[$inx];
-        if ($obj === null)
+        if ($obj === null) {
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
+        }
         if (is_int($obj)) {
             return (int)$obj;
         } else {
@@ -85,8 +88,9 @@ class GSArray
     public function getLong($inx)
     {
         $obj = $this->map[$inx];
-        if ($obj === null)
+        if ($obj === null) {
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
+        }
         if (is_float($obj)) {
             return (float)$obj;
         } else {
@@ -97,8 +101,9 @@ class GSArray
     public function getDouble($inx)
     {
         $obj = $this->map[$inx];
-        if ($obj === null)
+        if ($obj === null) {
             throw new Exception(GSArray::NO_INDEX_EX + $inx);
+        }
         if (is_double($obj)) {
             return (double)$obj;
         } else {
@@ -142,15 +147,17 @@ class GSArray
 
     public function serialize()
     {
-        $arr = Array();
-        if (empty($this->map)) return $arr;
+        $arr = array();
+        if (empty($this->map)) {
+            return $arr;
+        }
         $arr = GSArray::serializeGSArray($this);
         return $arr;
     }
 
     public static function serializeGSArray($gsarr)
     {
-        $arr = Array();
+        $arr = array();
         for ($i = 0; $i < $gsarr->length(); $i++) {
             $val = $gsarr->getObject($i);
             $val = GSObject::serializeValue($val);

@@ -2,6 +2,8 @@
 
 namespace Softonic\Gigya;
 
+use Exception;
+
 /**
  * A Request to Gigya Socialize API
  */
@@ -27,7 +29,7 @@ class GSRequest
     private $useHTTPS;
     private $apiDomain = self::DEFAULT_API_DOMAIN;
 
-    static function __constructStatic()
+    public static function __constructStatic()
     {
         GSRequest::$cafile = realpath(__DIR__.'/cacert.pem');
     }
@@ -48,11 +50,13 @@ class GSRequest
      */
     public function __construct($apiKey, $secretKey, $apiMethod, $params = null, $useHTTPS = true, $userKey = null)
     {
-        if (!isset($apiMethod) || strlen($apiMethod) == 0)
+        if (!isset($apiMethod) || strlen($apiMethod) == 0) {
             return;
+        }
 
-        if (substr($apiMethod, 0, 1) == "/")
+        if (substr($apiMethod, 0, 1) == "/") {
             $apiMethod = substr($apiMethod, 1);
+        }
 
         if (strrpos($apiMethod, ".") == 0) {
             $this->domain = "socialize.gigya.com";
@@ -63,10 +67,11 @@ class GSRequest
             $this->path = "/" . $apiMethod;
         }
         $this->method = $apiMethod;
-        if (empty($params))
+        if (empty($params)) {
             $this->params = new GSObject();
-        else
+        } else {
             $this->params = clone $params;
+        }
         // use "_host" to override domain, if available
         $this->domain = $this->params->getString("_host", $this->domain);
         $this->useHTTPS = $useHTTPS;
@@ -102,10 +107,11 @@ class GSRequest
      */
     public function setAPIDomain($apiDomain)
     {
-        if (!isset($apiDomain) || strlen($apiDomain) == 0)
+        if (!isset($apiDomain) || strlen($apiDomain) == 0) {
             $this->apiDomain = self::DEFAULT_API_DOMAIN;
-        else
+        } else {
             $this->apiDomain = $apiDomain;
+        }
     }
 
     public static function setCAFile($filename)
@@ -223,8 +229,8 @@ class GSRequest
             CURLOPT_HEADER => 1,
             CURLOPT_POSTFIELDS => $qs,
             CURLOPT_HTTPHEADER => array(),
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_SSL_VERIFYPEER => TRUE,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_CAINFO => GSRequest::$cafile,
             CURLOPT_PROXY => $this->proxy,
@@ -283,8 +289,6 @@ class GSRequest
 
     private static function calcOAuth1BaseString($httpMethod, $url, $isSecureConnection, $requestParams)
     {
-
-
         $normalizedUrl = "";
         $u = parse_url($url);
         $protocol = strtolower($u["scheme"]);
@@ -316,8 +320,12 @@ class GSRequest
 
             //curl is sending 1 and 0 when the value is boolean.
             //so in order to create a valid signature we're changing false to 0 and true to 1.
-            if ($value === false) $value = "0";
-            if ($value === true) $value = "1";
+            if ($value === false) {
+                $value = "0";
+            }
+            if ($value === true) {
+                $value = "1";
+            }
             $queryString .= $amp . $key . "=" . self::UrlEncode($value);
             $amp = "&";
         }
@@ -325,7 +333,6 @@ class GSRequest
         // Construct the base string from the HTTP method, the URL and the parameters
         $baseString = strtoupper($httpMethod) . "&" . self::UrlEncode($normalizedUrl) . "&" . self::UrlEncode($queryString);
         return $baseString;
-
     }
 
     public static function UrlEncode($value)

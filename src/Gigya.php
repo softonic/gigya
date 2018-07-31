@@ -35,13 +35,12 @@ class Gigya
      * @var string    $gigya_url_api_domain        The gigya_api_domain.
      * @var string    $uid_required                A flag to set if UID is required or not.
      */
-    protected
-        $gigya_request,
-        $gigya_user_id = null,
-        $gigya_api_key,
-        $gigya_secret_key,
-        $gigya_url_api_domain,
-        $uid_required = true;
+    protected $gigya_request;
+    protected $gigya_user_id = null;
+    protected $gigya_api_key;
+    protected $gigya_secret_key;
+    protected $gigya_url_api_domain;
+    protected $uid_required = true;
 
     /**
      * GigyaAPI constructor.
@@ -50,12 +49,11 @@ class Gigya
      * @param string $gigya_secret_key      Gigya secret key.
      * @param string $gigya_url_api_domain  Gigya url api domain.
      */
-    public function __construct($gigya_api_key ,$gigya_secret_key, $gigya_url_api_domain)
+    public function __construct($gigya_api_key, $gigya_secret_key, $gigya_url_api_domain)
     {
         $this->gigya_api_key = $gigya_api_key;
         $this->gigya_secret_key = $gigya_secret_key;
         $this->gigya_url_api_domain = $gigya_url_api_domain;
-        
     }
 
     /**
@@ -107,10 +105,10 @@ class Gigya
 
         $gigya_response = $this->gigya_request->send();
 
-        if (0 == $gigya_response->getErrorCode()){
+        if (0 == $gigya_response->getErrorCode()) {
             return json_decode($gigya_response->getData()->toJsonString());
         } else {
-            throw new \Exception( $gigya_response->getErrorMessage(), $gigya_response->getErrorCode());
+            throw new \Exception($gigya_response->getErrorMessage(), $gigya_response->getErrorCode());
         }
     }
 
@@ -168,5 +166,4 @@ class Gigya
         $this->uid_required = $uid_required;
         return $this;
     }
-
 }
